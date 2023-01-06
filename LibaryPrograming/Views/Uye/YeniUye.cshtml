@@ -1,0 +1,26 @@
+﻿@model LibaryPrograming.Models.Entity.TBLUYE
+@{
+    ViewBag.Title = "YeniUye";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<form method="post" class="form-group">
+    <div>
+        <label>Uye Adı</label>
+        @Html.TextBoxFor(m => m.UYEAD, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.UYEAD, "", new { @style = "color:green" })
+    </div>
+    <div>
+        <label>Uye Soyadı</label>
+        <input type="text" class="form-control" name="UYESOYAD" />
+    </div>
+    <div style="margin-top:15px">
+        <button class="btn btn-info" id="btn1">Uye Ekle</button>
+    </div>
+    <script>
+        $('#btn1').click(function () {
+            alert('Müsteri ekleme işlemi yapıldı...')
+        });
+    </script>
+</form>
+

@@ -1,0 +1,54 @@
+﻿@model LibaryPrograming.Models.Entity.TBLODUNC
+ 
+    @{
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/_MainLayout.cshtml";
+    }
+
+    @*<table class="table table-bordered">
+        <tr>
+            <th>Uye Adı</th>
+            <th>KİTAP ADI</th>
+        </tr>
+        <tbody>
+            @foreach (var odc in Model)
+            {
+                <tr>
+                    <td>@odc.TBLUYE.UYEAD</td>
+                    <th>@odc.KITAPID</th>
+                    <td><a href="/OduncKıtaplar/SIL/@odc.KITAPID" class="btn btn-danger  ">SİL</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>*@
+    <button type="button" class="btn btn-primary" id="openModalButton">Ödünç Al</button>
+    <div class="modal" id="Modal1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title"> Odunc Ekran</h2>
+                </div>
+                <form method="post" action="/OduncKıtaplar/YeniOdunc">
+                    <div class="modal-body">
+                        <label>Kitap Adı</label>
+                        @Html.TextBoxFor(m => m.KITAPID, new { @class = "form-control" })
+                        <label>Üye Adı Soyadı</label>
+                        @Html.TextBoxFor(m => m.UYEID, new { @class = "form-control" })
+                        <label>Aldığı Tarih</label>
+                        @Html.TextBoxFor(m => m.ALISTARIH, new { @class = "form-control" })
+                        <label>Getireceği Tarih</label>
+                        @Html.TextBoxFor(m => m.GETIRECEGITARIH, new { @class = "form-control" })
+                        <label>Getirdiği Tarih</label>
+                        @Html.TextBoxFor(m => m.GETIRDIGITARIH, new { @class = "form-control" })
+                        <button type="submit" class="btn btn-info">Odunc Kitap Al</button>
+                        <button type="button" class="btn btn-danger">Vazgeç</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById("openModalButton").addEventListener("click", function () {
+            document.getElementById("Modal1").style.display = "block";
+        });
+    </script>

@@ -1,0 +1,31 @@
+﻿@using LibaryPrograming.Models.Entity
+@model List<TBLYAZAR>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>YAZAR ID</th>
+        <th>YAZAR ADI</th>
+        <th>SİL</th>
+        <th>GÜNCELLE</th>
+    </tr>
+    <tbody>
+        @foreach (var yzr in Model)
+        {
+            <tr>
+                <th>@yzr.YAZARID</th>
+                <td>@yzr.YAZARAD</td>
+                <td><a href="/YAZAR/SIL/@yzr.YAZARID" class="btn btn-danger  ">SİL</a></td>
+                <td><a href="/YAZAR/GUNCELLE/@yzr.YAZARID" class="btn btn-success">GÜNCELLE</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="/YAZAR/YENIYAZAR/" class="btn btn-primary">YENİ YAZAR EKLE</a>
+
+

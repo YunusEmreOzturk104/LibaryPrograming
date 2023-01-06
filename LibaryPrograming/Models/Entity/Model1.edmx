@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="KutuphaneDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TBLKATEGORI">
+          <Key>
+            <PropertyRef Name="KATEGORIID" />
+          </Key>
+          <Property Name="KATEGORIID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KATEGORIAD" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TBLKITAPLAR">
+          <Key>
+            <PropertyRef Name="KITAPID" />
+          </Key>
+          <Property Name="KITAPID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KITAPAD" Type="nvarchar" MaxLength="50" />
+          <Property Name="KITAPKATEGORİ" Type="smallint" />
+          <Property Name="KİTAPYAZAR" Type="smallint" />
+          <Property Name="ADET" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="TBLODUNC">
+          <Key>
+            <PropertyRef Name="ODUNCID" />
+          </Key>
+          <Property Name="ODUNCID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KITAPID" Type="int" />
+          <Property Name="UYEID" Type="int" />
+          <Property Name="ALISTARIH" Type="datetime" />
+          <Property Name="GETIRECEGITARIH" Type="datetime" />
+          <Property Name="GETIRDIGITARIH" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TBLUYE">
+          <Key>
+            <PropertyRef Name="UYEID" />
+          </Key>
+          <Property Name="UYEID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UYEAD" Type="varchar" MaxLength="50" />
+          <Property Name="UYESOYAD" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TBLYAZAR">
+          <Key>
+            <PropertyRef Name="YAZARID" />
+          </Key>
+          <Property Name="YAZARID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="YAZARAD" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_TBLKITAPLAR_TBLKATEGORI">
+          <End Role="TBLKATEGORI" Type="Self.TBLKATEGORI" Multiplicity="0..1" />
+          <End Role="TBLKITAPLAR" Type="Self.TBLKITAPLAR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLKATEGORI">
+              <PropertyRef Name="KATEGORIID" />
+            </Principal>
+            <Dependent Role="TBLKITAPLAR">
+              <PropertyRef Name="KITAPKATEGORİ" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLKITAPLAR_TBLYAZAR">
+          <End Role="TBLYAZAR" Type="Self.TBLYAZAR" Multiplicity="0..1" />
+          <End Role="TBLKITAPLAR" Type="Self.TBLKITAPLAR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLYAZAR">
+              <PropertyRef Name="YAZARID" />
+            </Principal>
+            <Dependent Role="TBLKITAPLAR">
+              <PropertyRef Name="KİTAPYAZAR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLODUNC_TBLUYE">
+          <End Role="TBLUYE" Type="Self.TBLUYE" Multiplicity="0..1" />
+          <End Role="TBLODUNC" Type="Self.TBLODUNC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLUYE">
+              <PropertyRef Name="UYEID" />
+            </Principal>
+            <Dependent Role="TBLODUNC">
+              <PropertyRef Name="UYEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KutuphaneDbModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLKATEGORI" EntityType="Self.TBLKATEGORI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLKITAPLAR" EntityType="Self.TBLKITAPLAR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLODUNC" EntityType="Self.TBLODUNC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLUYE" EntityType="Self.TBLUYE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLYAZAR" EntityType="Self.TBLYAZAR" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TBLKITAPLAR_TBLKATEGORI" Association="Self.FK_TBLKITAPLAR_TBLKATEGORI">
+            <End Role="TBLKATEGORI" EntitySet="TBLKATEGORI" />
+            <End Role="TBLKITAPLAR" EntitySet="TBLKITAPLAR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLKITAPLAR_TBLYAZAR" Association="Self.FK_TBLKITAPLAR_TBLYAZAR">
+            <End Role="TBLYAZAR" EntitySet="TBLYAZAR" />
+            <End Role="TBLKITAPLAR" EntitySet="TBLKITAPLAR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLODUNC_TBLUYE" Association="Self.FK_TBLODUNC_TBLUYE">
+            <End Role="TBLUYE" EntitySet="TBLUYE" />
+            <End Role="TBLODUNC" EntitySet="TBLODUNC" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KutuphaneDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TBLKATEGORI">
+          <Key>
+            <PropertyRef Name="KATEGORIID" />
+          </Key>
+          <Property Name="KATEGORIID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KATEGORIAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBLKITAPLARs" Relationship="Self.FK_TBLKITAPLAR_TBLKATEGORI" FromRole="TBLKATEGORI" ToRole="TBLKITAPLAR" />
+        </EntityType>
+        <EntityType Name="TBLKITAPLAR">
+          <Key>
+            <PropertyRef Name="KITAPID" />
+          </Key>
+          <Property Name="KITAPID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KITAPAD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KITAPKATEGORİ" Type="Int16" />
+          <Property Name="KİTAPYAZAR" Type="Int16" />
+          <Property Name="ADET" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="TBLKATEGORI" Relationship="Self.FK_TBLKITAPLAR_TBLKATEGORI" FromRole="TBLKITAPLAR" ToRole="TBLKATEGORI" />
+          <NavigationProperty Name="TBLYAZAR" Relationship="Self.FK_TBLKITAPLAR_TBLYAZAR" FromRole="TBLKITAPLAR" ToRole="TBLYAZAR" />
+        </EntityType>
+        <EntityType Name="TBLODUNC">
+          <Key>
+            <PropertyRef Name="ODUNCID" />
+          </Key>
+          <Property Name="ODUNCID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KITAPID" Type="Int32" />
+          <Property Name="UYEID" Type="Int32" />
+          <Property Name="ALISTARIH" Type="DateTime" Precision="3" />
+          <Property Name="GETIRECEGITARIH" Type="DateTime" Precision="3" />
+          <Property Name="GETIRDIGITARIH" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TBLUYE" Relationship="Self.FK_TBLODUNC_TBLUYE" FromRole="TBLODUNC" ToRole="TBLUYE" />
+        </EntityType>
+        <EntityType Name="TBLUYE">
+          <Key>
+            <PropertyRef Name="UYEID" />
+          </Key>
+          <Property Name="UYEID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UYEAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UYESOYAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBLODUNCs" Relationship="Self.FK_TBLODUNC_TBLUYE" FromRole="TBLUYE" ToRole="TBLODUNC" />
+        </EntityType>
+        <EntityType Name="TBLYAZAR">
+          <Key>
+            <PropertyRef Name="YAZARID" />
+          </Key>
+          <Property Name="YAZARID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="YAZARAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBLKITAPLARs" Relationship="Self.FK_TBLKITAPLAR_TBLYAZAR" FromRole="TBLYAZAR" ToRole="TBLKITAPLAR" />
+        </EntityType>
+        <Association Name="FK_TBLKITAPLAR_TBLKATEGORI">
+          <End Role="TBLKATEGORI" Type="Self.TBLKATEGORI" Multiplicity="0..1" />
+          <End Role="TBLKITAPLAR" Type="Self.TBLKITAPLAR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLKATEGORI">
+              <PropertyRef Name="KATEGORIID" />
+            </Principal>
+            <Dependent Role="TBLKITAPLAR">
+              <PropertyRef Name="KITAPKATEGORİ" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLKITAPLAR_TBLYAZAR">
+          <End Role="TBLYAZAR" Type="Self.TBLYAZAR" Multiplicity="0..1" />
+          <End Role="TBLKITAPLAR" Type="Self.TBLKITAPLAR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLYAZAR">
+              <PropertyRef Name="YAZARID" />
+            </Principal>
+            <Dependent Role="TBLKITAPLAR">
+              <PropertyRef Name="KİTAPYAZAR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLODUNC_TBLUYE">
+          <End Role="TBLUYE" Type="Self.TBLUYE" Multiplicity="0..1" />
+          <End Role="TBLODUNC" Type="Self.TBLODUNC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLUYE">
+              <PropertyRef Name="UYEID" />
+            </Principal>
+            <Dependent Role="TBLODUNC">
+              <PropertyRef Name="UYEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KutuphaneDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="TBLKATEGORIs" EntityType="Self.TBLKATEGORI" />
+          <EntitySet Name="TBLKITAPLARs" EntityType="Self.TBLKITAPLAR" />
+          <EntitySet Name="TBLODUNCs" EntityType="Self.TBLODUNC" />
+          <EntitySet Name="TBLUYEs" EntityType="Self.TBLUYE" />
+          <EntitySet Name="TBLYAZARs" EntityType="Self.TBLYAZAR" />
+          <AssociationSet Name="FK_TBLKITAPLAR_TBLKATEGORI" Association="Self.FK_TBLKITAPLAR_TBLKATEGORI">
+            <End Role="TBLKATEGORI" EntitySet="TBLKATEGORIs" />
+            <End Role="TBLKITAPLAR" EntitySet="TBLKITAPLARs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLKITAPLAR_TBLYAZAR" Association="Self.FK_TBLKITAPLAR_TBLYAZAR">
+            <End Role="TBLYAZAR" EntitySet="TBLYAZARs" />
+            <End Role="TBLKITAPLAR" EntitySet="TBLKITAPLARs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLODUNC_TBLUYE" Association="Self.FK_TBLODUNC_TBLUYE">
+            <End Role="TBLUYE" EntitySet="TBLUYEs" />
+            <End Role="TBLODUNC" EntitySet="TBLODUNCs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="KutuphaneDbModelStoreContainer" CdmEntityContainer="KutuphaneDbEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="KutuphaneDbModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLKATEGORIs">
+            <EntityTypeMapping TypeName="KutuphaneDbModel.TBLKATEGORI">
+              <MappingFragment StoreEntitySet="TBLKATEGORI">
+                <ScalarProperty Name="KATEGORIID" ColumnName="KATEGORIID" />
+                <ScalarProperty Name="KATEGORIAD" ColumnName="KATEGORIAD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLKITAPLARs">
+            <EntityTypeMapping TypeName="KutuphaneDbModel.TBLKITAPLAR">
+              <MappingFragment StoreEntitySet="TBLKITAPLAR">
+                <ScalarProperty Name="KITAPID" ColumnName="KITAPID" />
+                <ScalarProperty Name="KITAPAD" ColumnName="KITAPAD" />
+                <ScalarProperty Name="KITAPKATEGORİ" ColumnName="KITAPKATEGORİ" />
+                <ScalarProperty Name="KİTAPYAZAR" ColumnName="KİTAPYAZAR" />
+                <ScalarProperty Name="ADET" ColumnName="ADET" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLODUNCs">
+            <EntityTypeMapping TypeName="KutuphaneDbModel.TBLODUNC">
+              <MappingFragment StoreEntitySet="TBLODUNC">
+                <ScalarProperty Name="ODUNCID" ColumnName="ODUNCID" />
+                <ScalarProperty Name="KITAPID" ColumnName="KITAPID" />
+                <ScalarProperty Name="UYEID" ColumnName="UYEID" />
+                <ScalarProperty Name="ALISTARIH" ColumnName="ALISTARIH" />
+                <ScalarProperty Name="GETIRECEGITARIH" ColumnName="GETIRECEGITARIH" />
+                <ScalarProperty Name="GETIRDIGITARIH" ColumnName="GETIRDIGITARIH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLUYEs">
+            <EntityTypeMapping TypeName="KutuphaneDbModel.TBLUYE">
+              <MappingFragment StoreEntitySet="TBLUYE">
+                <ScalarProperty Name="UYEID" ColumnName="UYEID" />
+                <ScalarProperty Name="UYEAD" ColumnName="UYEAD" />
+                <ScalarProperty Name="UYESOYAD" ColumnName="UYESOYAD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLYAZARs">
+            <EntityTypeMapping TypeName="KutuphaneDbModel.TBLYAZAR">
+              <MappingFragment StoreEntitySet="TBLYAZAR">
+                <ScalarProperty Name="YAZARID" ColumnName="YAZARID" />
+                <ScalarProperty Name="YAZARAD" ColumnName="YAZARAD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

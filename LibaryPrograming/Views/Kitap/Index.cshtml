@@ -1,0 +1,42 @@
+﻿@using LibaryPrograming.Models.Entity
+@model List<TBLKITAPLAR>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<table id="tbl1" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>KİTAP ID</th>
+            <th>KİTAP ADI</th>
+            <th>KATEGORİ</th>
+            <th>YAZAR</th>
+            <th>ADET</th>
+            <th>SİL</th>
+            <th>GUNCELLE</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ktp in Model)
+        {
+            <tr>
+                <th>@ktp.KITAPID</th>
+                <td>@ktp.KITAPAD</td>
+                <td>@ktp.TBLKATEGORI.KATEGORIAD</td>
+                <td>@ktp.TBLYAZAR.YAZARAD</td>
+                <td>@ktp.ADET</td>
+                <td><a href="/KITAP/SIL/@ktp.KITAPID" class="btn btn-danger  ">SİL</a></td>
+                <td><a href="/KITAP/KitapGetir/@ktp.KITAPID" class="btn btn-success">GÜNCELLE</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="/KITAP/KıtapEkle/" class="btn btn-primary">YENİ KITAP EKLE</a>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/Content/DataTables/css/dataTables.bootstrap4.css" rel="stylesheet" />
+<script>
+    $('#tbl1').dataTable();
+</script>

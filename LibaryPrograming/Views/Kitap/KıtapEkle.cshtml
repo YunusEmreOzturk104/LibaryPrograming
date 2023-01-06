@@ -1,0 +1,30 @@
+﻿@model  LibaryPrograming.Models.Entity.TBLKITAPLAR
+@{
+    ViewBag.Title = "KıtapEkle";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<form method="post" class="form-group">
+    <div>
+        <label>Kitap Adı</label>
+        <input type="text" class="form-control" name="KITAPAD" required="" maxlength="30" placeholder="Kıtap adı" />
+    </div>
+    <div>
+        <label>Kitap Kategori</label>
+        @Html.DropDownListFor(m => m.TBLKATEGORI.KATEGORIID, (List<SelectListItem>)ViewBag.dgr, new {@class="from-control"})
+    </div>
+    <div>
+        <label>Yazar Adı</label>
+       
+        @Html.DropDownListFor(m => m.TBLYAZAR.YAZARID, (List<SelectListItem>)ViewBag.dgr2, new { @class = "from-control" })
+    </div>
+    <div>
+        <label>Adet Miktarı</label>
+        <input type="text" class="form-control" name="KITAPADET"  placeholder="Kıtap adeti"  />
+    </div>
+    <div style="margin-top:15px">
+        <button class="btn btn-info">Kıtap Ekle</button>
+    </div>
+</form>
+
+

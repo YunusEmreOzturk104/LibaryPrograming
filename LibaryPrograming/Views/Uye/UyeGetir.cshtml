@@ -1,0 +1,23 @@
+﻿@model LibaryPrograming.Models.Entity.TBLUYE
+@{
+    ViewBag.Title = "UyeGetir";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+@using (Html.BeginForm("Guncelle", "Uye", FormMethod.Post))
+{
+<div class="form-group">
+    @Html.LabelFor(m => m.UYEID)
+    @Html.TextBoxFor(m => m.UYEID, new { @class = "form-kontrol" })
+    <br /><br />
+    @Html.LabelFor(m => m.UYEAD)
+    @Html.TextBoxFor(m => m.UYEAD, new { @class = "form-kontrol" })
+    <br /><br />
+    @Html.LabelFor(m => m.UYESOYAD)
+    @Html.TextBoxFor(m => m.UYESOYAD, new { @class = "form-kontrol" })
+</div>
+    <div>
+        <button class="btn btn-warning">Uye Güncelle</button>
+    </div>
+}
+

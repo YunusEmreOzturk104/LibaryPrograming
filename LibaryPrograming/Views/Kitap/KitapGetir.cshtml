@@ -1,0 +1,32 @@
+﻿@model LibaryPrograming.Models.Entity.TBLKITAPLAR
+@{
+    ViewBag.Title = "KitapGetir";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+@using (Html.BeginForm("Guncelle", "Kitap", FormMethod.Post))
+{
+<div class="form-group">
+    @Html.LabelFor(m => m.KITAPID)
+    @Html.TextBoxFor(m => m.KITAPID, new { @class = "form-kontrol" })
+    <br /><br />
+    @Html.LabelFor(m => m.KITAPAD)
+    @Html.TextBoxFor(m => m.KITAPAD, new { @class = "form-kontrol" })
+    <br /><br />
+    @Html.LabelFor(m => m.KITAPKATEGORİ)
+    @Html.DropDownListFor(m => m.TBLKATEGORI.KATEGORIID, (List<SelectListItem>)ViewBag.dgr, new { @class = "form-kontrol" }))
+    @*@Html.TextBoxFor(m => m.KITAPKATEGORİ, new { @class = "form-kontrol" })*@
+    <br /><br />
+    @Html.LabelFor(m => m.KİTAPYAZAR)
+    @Html.DropDownListFor(m => m.TBLYAZAR.YAZARID, (List<SelectListItem>)ViewBag.dgr2, new { @class = "form-kontrol" }))
+    @*@Html.TextBoxFor(m => m.KİTAPYAZAR, new { @class = "form-kontrol" })*@
+    <br /><br />
+    @Html.LabelFor(m => m.ADET)
+    @Html.TextBoxFor(m => m.ADET, new { @class = "form-kontrol" })
+
+</div>
+    <div>
+        <button class="btn btn-warning">Kitap Güncelle</button>
+    </div>
+}
+
